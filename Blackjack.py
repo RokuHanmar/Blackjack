@@ -23,6 +23,7 @@ def draw():  # Get a suit and a value, combine them, and check to see if it's al
     drawnCards.append(card)        
     return card
 
+# Gameplay loop. As long as the player has money, the game will play for 5 rounds
 while playerBust == False and rounds > 0:
     bet = int(input("Enter your bet: "))
     while bet > playerMoney:
@@ -37,3 +38,5 @@ while playerBust == False and rounds > 0:
         card = draw()
         playerCards.append(card)
         #print(playerCards)
+        
+        # TODO: total cards, check they don't exceed 21, implement dealer functionality, expand on betting functionality
