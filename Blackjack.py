@@ -3,12 +3,11 @@ import random
 cards = [["Hearts", "Clubs", "Diamonds", "Spades"], ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"]]
 drawnCards = []
 
-playerMoney = 100
-currentRound = 1
+playerMoney = 100.00
 playerPoints = 0
-
 playerBust = False
-roundEnded = False
+
+currentRound = 1
 
 def draw():  # Get a suit and a value, combine them, and check to see if it's already drawn. If so, draw a new card. If
     suit = random.randint(0, 3)  # not, add to the list of drawn cards and return
@@ -38,16 +37,43 @@ def draw():  # Get a suit and a value, combine them, and check to see if it's al
     drawnCards.append(card)        
     return card, points
 
+def dealerDraw():  # Almost exactly the same as the standard draw function, but randomises Ace value
+    suit = random.randint(0, 3)
+    suit = cards[0][suit]
+    value = random.randint(0, 12)
+    value = cards[1][value]
+    
+    points = 0
+    if value == "Jack" or value == "Queen" or value == "King":
+        points = 10
+    elif value == "Ace":
+        highOrLow = random.randint(1, 2)
+        if highOrLow == 1:
+            points = 1
+        else:
+            points = 2
+    else:
+        points = int(value)
+        
+    card = (str(value) + " of " + str(suit))
+    while card in drawnCards:
+        suit = random.randint(0, 3)
+        suit = cards[0][suit]
+        value = random.randint(0, 12)
+        value = cards[1][value]
+        card = (str(value) + " of " + str(suit))
+    drawnCards.append(card)        
+    return card, points
+
+
 # Gameplay loop. As long as the player has money, the game will play for 5 currentRound
 while playerBust == False and currentRound <= 5:
     print("Round " + str(currentRound))
     print("You currently have "+ str(playerMoney) + " money")
-    bet = int(input("Enter your bet: "))
+    bet = float(input("Enter your bet: "))
     while bet > playerMoney:
         print("Error: bet cannot exceed total money")
         bet = int(input("Enter your bet: "))
-    #draw()
-#    print(drawnCards)
 
 # Reset variables
     roundEnded = False
@@ -57,6 +83,8 @@ while playerBust == False and currentRound <= 5:
     dealerPoints = 0
     drawnCards = []  # Note: the drawn cards are returned to the deck at the end of each round
     winner = "null"
+    playerBlackjack = False
+    dealerBlackjack = False
     
 # Player turn
     for i in range(2):
@@ -68,6 +96,7 @@ while playerBust == False and currentRound <= 5:
         if playerPoints == 21:
             print("Blackjack! Player wins!")
             winner = "player"
+            playerBlackjack = True
         
 # Player decision once first 2 cards have been drawn - drawing and folding
     while playerPoints < 21 and roundEnded == False:
@@ -86,13 +115,68 @@ while playerBust == False and currentRound <= 5:
 
 
                 if playerPoints > 21:
-                    print("Exceeded 21 points")
+                    print("Exceeded 21 points; turn ending")
                     choice = "fold"
                 elif playerPoints == 21:
-                    print("Equalled 21 points")
+                    print("Equalled 21 points; turn ending")
                     choice = "fold"
                 else:
                     choice = input("You can do the following: draw or fold. What do you choose? ")
-                    
-        # BUGS: 7 is worth 3 points. 9 of Spades is worth 10 points. 8, 3, 4, 10, King, Queen, 5, 6 all unaffected
-        # TODO: implement dealer functionality, expand on betting functionality
+
+# Dealer turn
+    if playerBlackjack == False:
+        for i in range(2):
+            card, points = dealerDraw()
+            dealerCards.append(card)
+            dealerPoints += points
+            print("The dealer has: " + str(dealerCards))
+            print("The dealer has: " + str(dealerPoints) + " points")
+            
+        while dealerPoints < 17 and dealerPoints < 21:
+            card, points = dealerDraw()
+            dealerCards.append(card)
+            dealerPoints += points
+            print("The dealer has: " + str(dealerCards))
+            print("The dealer has: " + str(dealerPoints) + " points")
+            if dealerPoints == 21:
+                print("Blackjack! Dealer wins!")
+                winner = "dealer"
+                dealerBlackjack = True
+            
+# Determine winner - if one party earned a Blackjack earlier, they win automatically. Otherwise, points are compared
+    if winner == "player":
+        print("Player wins!")
+    elif winner == "dealer":
+        print("Dealer wins!")
+    else:
+        if playerPoints > dealerPoints or (dealerPoints > 21 and playerPoints <= 21):
+            print("Player wins!")
+            winner = "player"
+        elif dealerPoints > playerPoints or (playerPoints > 21 and dealerPoints <= 21):
+            print("Dealer wins!")
+            winner = "dealer"
+        else:
+            print("Round tied")
+            winner = "null"
+
+# Give player their winnings
+    if winner == "player":
+        if playerBlackjack == True:
+            bet = bet * 2
+        else:
+            bet = bet * 1.5
+    elif winner == "dealer":
+        bet = bet * -1
+    elif winner == "null":
+        bet = bet * 1
+    playerMoney += bet
+    
+    if playerMoney <= 0:
+        print("Player has gone bust")
+        playerBust = True
+    else:
+        currentRound += 1
+    
+    
+        # BUGS: Possible to win when exceeding 21 points. Asks to fold twice. 7 is worth 3 points. 9 of Spades is worth 10 points. 8, 3, 4, 10, King, Queen, 5, 6 all unaffected
+        # TODO: Fix bugs
