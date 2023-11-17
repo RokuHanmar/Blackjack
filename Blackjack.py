@@ -4,7 +4,7 @@ cards = [["Hearts", "Clubs", "Diamonds", "Spades"], ["Ace", "2", "3", "4", "5", 
 drawnCards = []
 
 playerMoney = 100
-rounds = 5
+currentRound = 1
 playerPoints = 0
 
 playerBust = False
@@ -38,8 +38,10 @@ def draw():  # Get a suit and a value, combine them, and check to see if it's al
     drawnCards.append(card)        
     return card, points
 
-# Gameplay loop. As long as the player has money, the game will play for 5 rounds
-while playerBust == False and rounds > 0:
+# Gameplay loop. As long as the player has money, the game will play for 5 currentRound
+while playerBust == False and currentRound <= 5:
+    print("Round " + str(currentRound))
+    print("You currently have "+ str(playerMoney) + " money")
     bet = int(input("Enter your bet: "))
     while bet > playerMoney:
         print("Error: bet cannot exceed total money")
@@ -54,6 +56,7 @@ while playerBust == False and rounds > 0:
     playerPoints = 0
     dealerPoints = 0
     drawnCards = []  # Note: the drawn cards are returned to the deck at the end of each round
+    winner = "null"
     
 # Player turn
     for i in range(2):
@@ -62,6 +65,9 @@ while playerBust == False and rounds > 0:
         playerPoints += points
         print("You have: " + str(playerCards))
         print("You have: " + str(playerPoints) + " points")
+        if playerPoints == 21:
+            print("Blackjack! Player wins!")
+            winner = "player"
         
 # Player decision once first 2 cards have been drawn - drawing and folding
     while playerPoints < 21 and roundEnded == False:
@@ -77,9 +83,16 @@ while playerBust == False and rounds > 0:
                 playerPoints += points
                 print("You have: " + str(playerCards))
                 print("You have: " + str(playerPoints) + " points")
-                choice = input("You can do the following: draw or fold. What do you choose? ")
-                while choice.lower() != "draw" and choice.lower() != "fold":
+
+
+                if playerPoints > 21:
+                    print("Exceeded 21 points")
+                    choice = "fold"
+                elif playerPoints == 21:
+                    print("Equalled 21 points")
+                    choice = "fold"
+                else:
                     choice = input("You can do the following: draw or fold. What do you choose? ")
-                
-        # BUGS: round doesn't end when points exceed 21. 7 is worth 3 points. 9 of Spades is worth 10 points. 8, 3, 4, 10, King, Queen, 5, 6 all unaffected
-        # TODO: check they don't exceed 21, implement dealer functionality, expand on betting functionality
+                    
+        # BUGS: 7 is worth 3 points. 9 of Spades is worth 10 points. 8, 3, 4, 10, King, Queen, 5, 6 all unaffected
+        # TODO: implement dealer functionality, expand on betting functionality
