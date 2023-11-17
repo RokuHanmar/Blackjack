@@ -73,7 +73,7 @@ while playerBust == False and currentRound <= 5:
     bet = float(input("Enter your bet: "))
     while bet > playerMoney:
         print("Error: bet cannot exceed total money")
-        bet = int(input("Enter your bet: "))
+        bet = float(input("Enter your bet: "))
 
 # Reset variables
     roundEnded = False
@@ -96,9 +96,9 @@ while playerBust == False and currentRound <= 5:
     print("You have: " + str(playerCards))
     print("You have: " + str(playerPoints) + " points")
     if playerPoints == 21:
-       print("Blackjack! Player wins!")
-       winner = "player"
-       playerBlackjack = True
+        print("Blackjack!")
+        winner = "player"
+        playerBlackjack = True
         
 # Player decision once first 2 cards have been drawn - drawing and folding
     while playerPoints < 21 and roundEnded == False:
@@ -128,6 +128,9 @@ while playerBust == False and currentRound <= 5:
                 choice = "fold"
             else:
                 choice = input("You can do the following: draw or fold. What do you choose? ")
+                if choice.lower() == "fold":
+                    print("You have folded. Your score is " + str(playerPoints))
+                    roundEnded = True
 
 # Dealer turn
     if playerBlackjack == False:
@@ -138,7 +141,7 @@ while playerBust == False and currentRound <= 5:
         print("The dealer has: " + str(dealerCards))
         print("The dealer has: " + str(dealerPoints) + " points")
         if dealerPoints == 21:
-            print("Blackjack! Dealer wins!")
+            print("Blackjack!")
             winner = "dealer"
             dealerBlackjack = True
                 
@@ -188,5 +191,5 @@ while playerBust == False and currentRound <= 5:
         currentRound += 1
     
     
-        # BUGS: Values are often inconsistent. Most likely caused by score resetting
+        # BUGS: Values are often inconsistent. Most likely caused by score resetting.
         # TODO: Fix bugs
