@@ -66,7 +66,7 @@ def dealerDraw():  # Almost exactly the same as the standard draw function, but 
     return card, points
 
 
-# Gameplay loop. As long as the player has money, the game will play for 5 currentRound
+# Gameplay loop. As long as the player has money, the game will play for 5 rounds
 while playerBust == False and currentRound <= 5:
     print("Round " + str(currentRound))
     print("You currently have "+ str(playerMoney) + " money")
@@ -106,23 +106,25 @@ while playerBust == False and currentRound <= 5:
         if choice.lower() == "fold":
             print("You have folded. Your score is " + str(playerPoints))
             roundEnded = True
-        while choice.lower() == "draw":
+        while choice.lower() == "draw" and playerPoints < 21:
             card, points = draw()
             playerCards.append(card)
             playerPoints += points
             print("You have: " + str(playerCards))
             print("You have: " + str(playerPoints) + " points")
+        #    choice = input("You can do the following: draw or fold. What do you choose? ")
 
 
-        if playerPoints > 21:
-            print("Exceeded 21 points; turn ending")
-            playerPoints = 0
-            choice = "fold"
-        elif playerPoints == 21:
-            print("Equalled 21 points; turn ending")
-            choice = "fold"
-        #else:
-         #   choice = input("You can do the following: draw or fold. What do you choose? ")
+            if playerPoints > 21:
+                print("Exceeded 21 points; turn ending")
+                playerPoints = 0  # This means the player loses the round
+                choice = "fold"  # This line and the one below it means the player's turn ends
+                roundEnded = True
+            elif playerPoints == 21:
+                print("Equalled 21 points; turn ending")
+                choice = "fold"
+            else:
+                choice = input("You can do the following: draw or fold. What do you choose? ")
 
 # Dealer turn
     if playerBlackjack == False:
@@ -180,5 +182,5 @@ while playerBust == False and currentRound <= 5:
         currentRound += 1
     
     
-        # BUGS: Asks to fold when exceeding 21 points. 7 is worth 3 points. 9 of Spades is worth 10 points. 8, 3, 4, 10, King, Queen, 5, 6 all unaffected
+        # BUGS: Player wins when lower than dealer if both exceed 21. Values are often inconsistent. Both most likely caused by score resetting
         # TODO: Fix bugs
