@@ -3,7 +3,7 @@ An attempt at making blackjack in Python, Java and C
 
 Inspired by a COMP228 assignment, which asked me to do this in Swift (not uploaded at this point in time to avoid breaching Academic Integrity). This is Pontoon style blackjack, as opposed to Crazy Eights
 Here are the rules:
-1. The player starts with a betting pool of 100. The game lasts for 5 rounds, or until the player's betting pool reaches 0 or lower
+1. The player starts with a betting pool of 100. The game lasts for 5 rounds, or until the player's betting pool reaches 0 or lower. The game uses a standard 52 card deck
 2. The aim of the game is to reach as close to the number 21 as possible without exceeding it. Whoever does so wins the round
 3. Each number card is worth the number on the card. All picture cards are worth 10 points, apart from the Ace. The Ace is worth 1 point or 11, determined by user input
 4. The player goes first. They place a bet and are then dealt two cards, and then choose whether to draw more cards or stay with what they have. If the former, another card is given and the player is asked again until the latter is chosen. Choosing to fold ends the player's turn
