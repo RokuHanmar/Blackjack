@@ -100,28 +100,29 @@ while playerBust == False and currentRound <= 5:
         
 # Player decision once first 2 cards have been drawn - drawing and folding
     while playerPoints < 21 and roundEnded == False:
+        choice = input("You can do the following: draw or fold. What do you choose? ")
+        while choice.lower() != "draw" and choice.lower() != "fold":
             choice = input("You can do the following: draw or fold. What do you choose? ")
-            while choice.lower() != "draw" and choice.lower() != "fold":
-                choice = input("You can do the following: draw or fold. What do you choose? ")
-            if choice.lower() == "fold":
-                print("You have folded. Your score is " + str(playerPoints))
-                roundEnded = True
-            while choice.lower() == "draw":
-                card, points = draw()
-                playerCards.append(card)
-                playerPoints += points
-                print("You have: " + str(playerCards))
-                print("You have: " + str(playerPoints) + " points")
+        if choice.lower() == "fold":
+            print("You have folded. Your score is " + str(playerPoints))
+            roundEnded = True
+        while choice.lower() == "draw":
+            card, points = draw()
+            playerCards.append(card)
+            playerPoints += points
+            print("You have: " + str(playerCards))
+            print("You have: " + str(playerPoints) + " points")
 
 
-                if playerPoints > 21:
-                    print("Exceeded 21 points; turn ending")
-                    choice = "fold"
-                elif playerPoints == 21:
-                    print("Equalled 21 points; turn ending")
-                    choice = "fold"
-                else:
-                    choice = input("You can do the following: draw or fold. What do you choose? ")
+        if playerPoints > 21:
+            print("Exceeded 21 points; turn ending")
+            playerPoints = 0
+            choice = "fold"
+        elif playerPoints == 21:
+            print("Equalled 21 points; turn ending")
+            choice = "fold"
+        #else:
+         #   choice = input("You can do the following: draw or fold. What do you choose? ")
 
 # Dealer turn
     if playerBlackjack == False:
@@ -131,17 +132,18 @@ while playerBust == False and currentRound <= 5:
             dealerPoints += points
             print("The dealer has: " + str(dealerCards))
             print("The dealer has: " + str(dealerPoints) + " points")
-            
+            if dealerPoints == 21:
+                print("Blackjack! Dealer wins!")
+                winner = "dealer"
+                dealerBlackjack = True
+                
         while dealerPoints < 17 and dealerPoints < 21:
             card, points = dealerDraw()
             dealerCards.append(card)
             dealerPoints += points
             print("The dealer has: " + str(dealerCards))
             print("The dealer has: " + str(dealerPoints) + " points")
-            if dealerPoints == 21:
-                print("Blackjack! Dealer wins!")
-                winner = "dealer"
-                dealerBlackjack = True
+            
             
 # Determine winner - if one party earned a Blackjack earlier, they win automatically. Otherwise, points are compared
     if winner == "player":
@@ -168,7 +170,7 @@ while playerBust == False and currentRound <= 5:
     elif winner == "dealer":
         bet = bet * -1
     elif winner == "null":
-        bet = bet * 1
+        bet = bet * 0
     playerMoney += bet
     
     if playerMoney <= 0:
@@ -178,5 +180,5 @@ while playerBust == False and currentRound <= 5:
         currentRound += 1
     
     
-        # BUGS: Possible to win when exceeding 21 points. Asks to fold twice. 7 is worth 3 points. 9 of Spades is worth 10 points. 8, 3, 4, 10, King, Queen, 5, 6 all unaffected
+        # BUGS: Asks to fold when exceeding 21 points. 7 is worth 3 points. 9 of Spades is worth 10 points. 8, 3, 4, 10, King, Queen, 5, 6 all unaffected
         # TODO: Fix bugs
