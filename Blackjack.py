@@ -85,18 +85,20 @@ while playerBust == False and currentRound <= 5:
     winner = "null"
     playerBlackjack = False
     dealerBlackjack = False
+    playerOver = False
+    dealerOver = False
     
 # Player turn
     for i in range(2):
         card, points = draw()
         playerCards.append(card)
         playerPoints += points
-        print("You have: " + str(playerCards))
-        print("You have: " + str(playerPoints) + " points")
-        if playerPoints == 21:
-            print("Blackjack! Player wins!")
-            winner = "player"
-            playerBlackjack = True
+    print("You have: " + str(playerCards))
+    print("You have: " + str(playerPoints) + " points")
+    if playerPoints == 21:
+       print("Blackjack! Player wins!")
+       winner = "player"
+       playerBlackjack = True
         
 # Player decision once first 2 cards have been drawn - drawing and folding
     while playerPoints < 21 and roundEnded == False:
@@ -117,6 +119,7 @@ while playerBust == False and currentRound <= 5:
 
             if playerPoints > 21:
                 print("Exceeded 21 points; turn ending")
+                playerOver = True
                 playerPoints = 0  # This means the player loses the round
                 choice = "fold"  # This line and the one below it means the player's turn ends
                 roundEnded = True
@@ -132,12 +135,12 @@ while playerBust == False and currentRound <= 5:
             card, points = dealerDraw()
             dealerCards.append(card)
             dealerPoints += points
-            print("The dealer has: " + str(dealerCards))
-            print("The dealer has: " + str(dealerPoints) + " points")
-            if dealerPoints == 21:
-                print("Blackjack! Dealer wins!")
-                winner = "dealer"
-                dealerBlackjack = True
+        print("The dealer has: " + str(dealerCards))
+        print("The dealer has: " + str(dealerPoints) + " points")
+        if dealerPoints == 21:
+            print("Blackjack! Dealer wins!")
+            winner = "dealer"
+            dealerBlackjack = True
                 
         while dealerPoints < 17 and dealerPoints < 21:
             card, points = dealerDraw()
@@ -145,6 +148,9 @@ while playerBust == False and currentRound <= 5:
             dealerPoints += points
             print("The dealer has: " + str(dealerCards))
             print("The dealer has: " + str(dealerPoints) + " points")
+       
+        if dealerPoints > 21:
+            dealerOver = True
             
             
 # Determine winner - if one party earned a Blackjack earlier, they win automatically. Otherwise, points are compared
@@ -153,10 +159,10 @@ while playerBust == False and currentRound <= 5:
     elif winner == "dealer":
         print("Dealer wins!")
     else:
-        if playerPoints > dealerPoints or (dealerPoints > 21 and playerPoints <= 21):
+        if (playerPoints > dealerPoints or (dealerPoints > 21 and playerPoints <= 21)) and playerOver == False:
             print("Player wins!")
             winner = "player"
-        elif dealerPoints > playerPoints or (playerPoints > 21 and dealerPoints <= 21):
+        elif (dealerPoints > playerPoints or (playerPoints > 21 and dealerPoints <= 21)) and dealerOver == False:
             print("Dealer wins!")
             winner = "dealer"
         else:
@@ -182,5 +188,5 @@ while playerBust == False and currentRound <= 5:
         currentRound += 1
     
     
-        # BUGS: Player wins when lower than dealer if both exceed 21. Values are often inconsistent. Both most likely caused by score resetting
+        # BUGS: Values are often inconsistent. Most likely caused by score resetting
         # TODO: Fix bugs
