@@ -1,4 +1,4 @@
-import Java.util.Random;
+import java.util.Random;
 
 class Blackjack {
     public static void main(String[] args) {
@@ -12,7 +12,7 @@ class Blackjack {
         int playerPoints = 0;
         boolean playerBust = False;
 
-        int currentRound = 1;
+        int currentRound = 1;}
 
         static draw (String card, int points) {  // Get a suit and a value, combine them, and check to see if it's already drawn. If so, draw a new card. If
             int suit = rand.nextInt(4);  // not, add to the list of drawn cards and return
@@ -34,14 +34,14 @@ class Blackjack {
                 points = int(value);
                 }
 
-            String card = (\(value) + " of " + \(suit));
-            for drawnCard in drawnCards {
+            String card = (value + " of " + suit);
+            for (drawnCard in drawnCards[]) {
             if (card == drawnCard) {
                 int suit = rand.nextInt(4);
                 suit = cards[0][suit];
                 int value = rand.nextInt(13);
                 value = cards[1][value];
-                String card = (\(value) + " of " + \(suit));
+                String card = (value + " of " + suit);
             } else {
             drawnCards.append(card);
                 }
@@ -70,14 +70,14 @@ class Blackjack {
                 points = int(value);
                 }
 
-            String card = (\(value) + " of " + \(suit));
+            String card = (value + " of " + suit);
             for (drawnCard in drawnCards) {
             if (card == drawnCard) {
                 suit = rand.nextInt(4);
                 suit = cards[0][suit];
                 value = rand.nextInt(13);
                 value = cards[1][value];
-                card = (\(value) + " of " + \(suit));
+                card = (value + " of " + suit);
                         }
                 }
             drawnCards.append(card);
@@ -88,8 +88,8 @@ class Blackjack {
 
         // Gameplay loop. As long as the player has money, the game will play for 5 rounds
         while (playerBust == False && currentRound <= 5) {
-            System.out.println("Round " + \(currentRound));
-            System.out.println("You currently have "+ \(playerMoney) + " money");
+            System.out.println("Round " + currentRound);
+            System.out.println("You currently have "+ playerMoney + " money");
             float  bet = (input("Enter your bet: "));
             while (bet > playerMoney) {
                 System.out.println("Error: bet cannot exceed total money");
@@ -114,8 +114,8 @@ class Blackjack {
                 playerCards.append(card);
                 playerPoints += points;
             }
-            System.out.println("You have: " + \(playerCards));
-            System.out.println("You have: " + \(playerPoints) + " points");
+            System.out.println("You have: " + playerCards);
+            System.out.println("You have: " + playerPoints + " points");
             if (playerPoints == 21) {
                 System.out.println("Blackjack!");
                 winner = "player";
@@ -128,15 +128,15 @@ class Blackjack {
                 while (choice != "draw" && choice != "fold") {
                     String choice = input("You can do the following: draw or fold. What do you choose? ");
                 if (choice == "fold") {
-                    System.out.println("You have folded. Your score is " + \(playerPoints));
+                    System.out.println("You have folded. Your score is " + playerPoints);
                     roundEnded = True;
                 }
                 while (choice == "draw" && playerPoints < 21) {
                     card, points = draw();
                     playerCards;
                     playerPoints += points;
-                    System.out.println("You have: " + \(playerCards));
-                    System.out.println("You have: " + \(playerPoints) + " points");
+                    System.out.println("You have: " + playerCards);
+                    System.out.println("You have: " + playerPoints + " points");
 
                     if (playerPoints > 21) {
                         System.out.println("Exceeded 21 points; turn ending");
@@ -150,7 +150,7 @@ class Blackjack {
                     } else {
                         choice = input("You can do the following: draw or fold. What do you choose? ");
                         if (choice == "fold") {
-                            System.out.println("You have folded. Your score is " + \(playerPoints));
+                            System.out.println("You have folded. Your score is " + playerPoints);
                             roundEnded = True;
                             }
                         }
@@ -164,8 +164,8 @@ class Blackjack {
                     dealerPoints += points;
                 }
             }
-                System.out.println("The dealer has: " + \(dealerCards));
-                System.out.println("The dealer has: " + \(dealerPoints) + " points");
+                System.out.println("The dealer has: " + dealerCards);
+                System.out.println("The dealer has: " + dealerPoints + " points");
                 if (dealerPoints == 21) {
                     System.out.println("Blackjack!");
                     winner = "dealer";
@@ -176,8 +176,8 @@ class Blackjack {
                     card, points = dealerDraw();
                     dealerCards.append(card);
                     dealerPoints += points;
-                    System.out.println("The dealer has: " + \(dealerCards));
-                    System.out.println("The dealer has: " + \(dealerPoints) + " points");
+                    System.out.println("The dealer has: " + dealerCards);
+                    System.out.println("The dealer has: " + dealerPoints + " points");
 
                 if (dealerPoints > 21) {
                     dealerOver = True;
