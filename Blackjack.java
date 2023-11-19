@@ -10,7 +10,7 @@ class Blackjack {
 
     int currentRound = 1;
 
-    func draw() -> String, int {  // Get a suit and a value, combine them, and check to see if it's already drawn. If so, draw a new card. If
+    static draw (String card, int points) {  // Get a suit and a value, combine them, and check to see if it's already drawn. If so, draw a new card. If
         var suit = random(0, 3);  // not, add to the list of drawn cards and return
         suit = cards[0][suit];
         var value = random.int(0, 12);
@@ -42,10 +42,11 @@ class Blackjack {
         drawnCards.append(card);
             }
         }
-        return (card, points);
+        Tuple cardAndPoints = new Tuple (card, points);
+        return cardAndPoints;
     }
 
-    func dealerDraw() -> String, int {  // Almost exactly the same as the standard draw function, but randomises Ace value
+    static dealerDraw (String card, int points) {  // Almost exactly the same as the standard draw function, but randomises Ace value
         int suit = random.int(0, 3);
         suit = cards[0][suit];
         int value = random.random.int(0, 12);
@@ -66,7 +67,7 @@ class Blackjack {
             }
 
         String card = (\(value) + " of " + \(suit));
-        for drawnCard in drawnCards {
+        for (drawnCard in drawnCards) {
         if (card == drawnCard) {
             suit = random.int(0, 3);
             suit = cards[0][suit];
@@ -74,9 +75,10 @@ class Blackjack {
             value = cards[1][value];
             card = (\(value) + " of " + \(suit));
                     }
-                }
+            }
         drawnCards.append(card);
-        return (card, points);
+        Tuple cardAndPoints = new Tuple (card, points);
+        return cardAndPoints;
 
     }
 
