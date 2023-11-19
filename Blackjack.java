@@ -21,22 +21,29 @@ class Blackjack {
             value = cards[1][value];
             
             int points = 0;
-            if (value == "Jack" || value == "Queen" || value == "King") {
+            switch (card) {
+                case value == "Jack" || value == "Queen" || value == "King":
                 points = 10;
-            } else if (value == "Ace") {
-                var highOrLow = input("High Ace, or Low Ace? Answer will default to low ");
+                break;
+                
+                case value == "Ace":
+                String highOrLow = input("High Ace, or Low Ace? Answer will default to low ");
                 if (highOrLow == "high") {
                     points = 11;
                 } else {
                     points = 1;
                 }
-            } else {
+                break;
+
+                default:
                 points = int(value);
+                break;
+
                 }
 
-            String card = (value + " of " + suit);
-            for (drawnCard in drawnCards[]) {
-            if (card == drawnCard) {
+            String drawnCard = (value + " of " + suit);
+            for (int i = 0; i <= drawnCards.length; i++) {
+            if (drawnCard == drawnCards[i]) {
                 int suit = rand.nextInt(4);
                 suit = cards[0][suit];
                 int value = rand.nextInt(13);
@@ -57,21 +64,28 @@ class Blackjack {
             value = cards[1][value];
             
             int points = 0;
-            if (value == "Jack" || value == "Queen" || value == "King") {
-                points = 10;
-            } else if (value == "Ace") {
-                highOrLow =rand.nextInt(2);
-                if (highOrLow == 1) {
-                    points = 1;
-                } else {
-                    points = 2;
+            switch (card) {
+            case value == "Jack" || value == "Queen" || value == "King":
+            points = 10;
+            break;
+                
+            case value == "Ace":
+            String highOrLow = input("High Ace, or Low Ace? Answer will default to low ");
+            if (highOrLow == "high") {
+                points = 11;
+            } else {
+                points = 1;
             }
-        } else {
-                points = int(value);
-                }
+            break;
 
+            default:
+            points = int(value);
+            break;
+
+            }
+            
             String card = (value + " of " + suit);
-            for (drawnCard in drawnCards) {
+            for (int i = 0; i <= drawnCards.length; i++) {
             if (card == drawnCard) {
                 suit = rand.nextInt(4);
                 suit = cards[0][suit];
