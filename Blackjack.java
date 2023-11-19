@@ -1,8 +1,8 @@
 class Blackjack {
     public static void main(String[] args) {
 
-    var cards: [[String]] = [["Hearts", "Clubs", "Diamonds", "Spades"], ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"]];
-    var drawnCards: [String] = [];
+    String[][] cards = {{"Hearts", "Clubs", "Diamonds", "Spades"}, {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"}};
+    String[] drawnCards;
 
     float playerMoney = 100.00;
     int playerPoints = 0;
@@ -80,34 +80,27 @@ class Blackjack {
 
     }
 
-    // Verify deck has been shuffled, then reshuffle deck
-    for _ in 1...10 {
-        draw();
-    }
-    drawnCards = [];
-
-
     // Gameplay loop. As long as the player has money, the game will play for 5 rounds
     while (playerBust == False && currentRound <= 5) {
         System.out.println("Round " + \(currentRound));
         System.out.println("You currently have "+ \(playerMoney) + " money");
-        float  bet = float(input("Enter your bet: "));
-        while bet > playerMoney {
+        float  bet = (input("Enter your bet: "));
+        while (bet > playerMoney) {
             System.out.println("Error: bet cannot exceed total money")
-            bet = float(input("Enter your bet: "))
+            bet = (input("Enter your bet: "))
         }
     // Reset variables
         boolean roundEnded = False;
-        var playerCards: String = [];
-        var dealerCards: String = [];
+        String playerCards[];
+        String dealerCards[];
         int playerPoints = 0;
         int dealerPoints = 0;
-        drawnCards = [];
+        String drawnCards[];
         String winner = "null";
         boolean playerBlackjack = False;
         boolean dealerBlackjack = False;
         boolean playerOver = False;
-        boolean  dealerOver = False;
+        boolean dealerOver = False;
         
     // Player turn
         for (int i = 0; i > 2; i++) {
