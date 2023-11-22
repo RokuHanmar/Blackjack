@@ -1,0 +1,7 @@
+The code contained within this repository is open source. I do not intend to make any profits from this; everything uploaded here was a test of my own skill. 
+
+If you wish to contact me for any reason regarding this repository, open an issue and I'll get back to you.
+
+Disclaimer: the code provided in this repository is for general informational purposes only. All code is provided in good faith; however, I make no representation or warranty of any kind, express or implied, 
+regarding the accuracy, adequacy, validity, reliability, availability or completeness of any code in this repository. Under no circumstance shall I have any liability to you for any loss or damage of any kind 
+incurred as a result of the use of this code or reliance on any information provided in this repository. Your use of this code is done at your own risk. This disclaimer is binding as of November 22nd 2023.
