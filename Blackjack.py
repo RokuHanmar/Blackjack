@@ -68,13 +68,21 @@ def dealerDraw():  # Almost exactly the same as the standard draw function, but 
 
 # Gameplay loop. As long as the player has money, the game will play for 5 rounds
 while playerBust == False and currentRound <= 5:
+    print("_______________________________________________________________________________________________")
     print("Round " + str(currentRound))
     print("You currently have "+ str(playerMoney) + " money")
     bet = float(input("Enter your bet: "))
     while bet > playerMoney:
         print("Error: bet cannot exceed total money")
         bet = float(input("Enter your bet: "))
-
+    while bet <= 0:
+        print("Error: you must bet at least 1 money")
+        bet = float(input("Enter your bet: "))
+    """
+    while bet is not float:
+        print("Error: invalid input")
+        bet = float(input("Enter your bet: "))
+       """ 
 # Reset variables
     roundEnded = False
     playerCards = []
@@ -100,13 +108,13 @@ while playerBust == False and currentRound <= 5:
         winner = "player"
         playerBlackjack = True
         
-# Player decision once first 2 cards have been drawn - drawing and folding
+# Player decision once first 2 cards have been drawn - drawing and holding
     while playerPoints < 21 and roundEnded == False:
-        choice = input("You can do the following: draw or fold. What do you choose? ")
-        while choice.lower() != "draw" and choice.lower() != "fold":
-            choice = input("You can do the following: draw or fold. What do you choose? ")
-        if choice.lower() == "fold":
-            print("You have folded. Your score is " + str(playerPoints))
+        choice = input("You can do the following: draw or hold. What do you choose? ")
+        while choice.lower() != "draw" and choice.lower() != "hold":
+            choice = input("You can do the following: draw or hold. What do you choose? ")
+        if choice.lower() == "hold":
+            print("You have chosen to hold. Your score is " + str(playerPoints))
             roundEnded = True
         while choice.lower() == "draw" and playerPoints < 21:
             card, points = draw()
@@ -114,22 +122,21 @@ while playerBust == False and currentRound <= 5:
             playerPoints += points
             print("You have: " + str(playerCards))
             print("You have: " + str(playerPoints) + " points")
-        #    choice = input("You can do the following: draw or fold. What do you choose? ")
 
-
+            # End player turn if they equal or exceed 21 points
             if playerPoints > 21:
                 print("Exceeded 21 points; turn ending")
                 playerOver = True
                 playerPoints = 0  # This means the player loses the round
-                choice = "fold"  # This line and the one below it means the player's turn ends
+                choice = "hold"  # This line and the one below it means the player's turn ends
                 roundEnded = True
             elif playerPoints == 21:
                 print("Equalled 21 points; turn ending")
-                choice = "fold"
+                choice = "hold"
             else:
-                choice = input("You can do the following: draw or fold. What do you choose? ")
-                if choice.lower() == "fold":
-                    print("You have folded. Your score is " + str(playerPoints))
+                choice = input("You can do the following: draw or hold. What do you choose? ")
+                if choice.lower() == "hold":
+                    print("You have chosen to hold. Your score is " + str(playerPoints))
                     roundEnded = True
 
 # Dealer turn
@@ -189,7 +196,3 @@ while playerBust == False and currentRound <= 5:
         playerBust = True
     else:
         currentRound += 1
-    
-    
-        # BUGS: Values are often inconsistent. Most likely caused by score resetting.
-        # TODO: Fix bugs
