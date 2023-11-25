@@ -7,13 +7,24 @@ class Blackjack {
         Random rand = new Random();
 
         String[][] cards = {{"Hearts", "Clubs", "Diamonds", "Spades"}, {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"}};
-        String[] drawnCards;
+        String[] drawnCards = {};
 
         double playerMoney = 100.00;
         int playerPoints = 0;
         boolean playerBust = false;
 
-        int currentRound = 1;}
+        int currentRound = 1;
+    }
+
+    /*
+        static generateCard() {
+            int suit = rand.nextInt(4);  // not, add to the list of drawn cards and return
+            suit = cards[0][suit];
+            int value = rand.nextInt(13);
+            value = cards[1][value];
+            
+        }
+*/
 
         static draw (String card, int points) {  // Get a suit and a value, combine them, and check to see if it's already drawn. If so, draw a new card. If
             int suit = rand.nextInt(4);  // not, add to the list of drawn cards and return
@@ -99,8 +110,7 @@ class Blackjack {
             drawnCards.append(card);
             Tuple cardAndPoints = new Tuple (card, points);
             return cardAndPoints;
-
-        }
+            }
 
         // Gameplay loop. As long as the player has money, the game will play for 5 rounds
         while (playerBust == false && currentRound <= 5) {
@@ -112,17 +122,17 @@ class Blackjack {
                 bet = (input("Enter your bet: "));
             }
         // Reset variables
-            boolean roundEnded = false;
+            roundEnded = false;
             String playerCards[] = {};
             String dealerCards[] = {};
-            int playerPoints = 0;
-            int dealerPoints = 0;
+            playerPoints = 0;
+            dealerPoints = 0;
             String drawnCards[] = {};
-            String winner = "null";
-            boolean playerBlackjack = false;
-            boolean dealerBlackjack = false;
-            boolean playerOver = false;
-            boolean dealerOver = false;
+            winner = "null";
+            playerBlackjack = false;
+            dealerBlackjack = false;
+            playerOver = false;
+            dealerOver = false;
             
         // Player turn
             for (int i = 0; i > 2; i++) {
@@ -250,11 +260,12 @@ class Blackjack {
 }
 }
 }
+}
 
- /* TO DO:
+/* TO DO:
   * 1. Rename local variables - DONE
   * 2. Deal with non-static field problem - DONE
-  * 3. Insert tokens causing syntax errors
+  * 3. Insert tokens causing syntax errors - DONE
   * 4. Remove tokens causing syntax errors
   * 5. Insert variable declarators - DONE
   * 6. Complete block and class bodies
