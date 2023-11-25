@@ -9,7 +9,7 @@ playerBust = False
 
 currentRound = 1
 
-def generateCard():
+def generateCard():  # Create a card by combining a random suit and value
     suit = random.randint(0, 3)
     suit = cards[0][suit]
     value = random.randint(0, 12)
@@ -19,8 +19,12 @@ def generateCard():
 
     
 
-def draw():  # Get a suit and a value, combine them, and check to see if it's already drawn. If so, draw a new card. If
+def draw():  # Draw a card, check if it's unique, total its points, then output it
     card = generateCard()
+            
+    while card in drawnCards:
+        card = generateCard()
+    drawnCards.append(card)
     
     points = 0
     if "Jack" in card or "Queen" in card or "King" in card:
@@ -33,14 +37,15 @@ def draw():  # Get a suit and a value, combine them, and check to see if it's al
             points = 1
     else:
         points = card[1]
-        
-    while card in drawnCards:
-        card = generateCard()
-    drawnCards.append(card)        
+
     return card, points
 
-def dealerDraw():  # Almost exactly the same as the standard draw function, but randomises Ace value
+def dealerDraw():  # Almost exactly the same as the original draw function, but randomises Ace value
     card = generateCard()
+            
+    while card in drawnCards:
+        card = generateCard()
+    drawnCards.append(card)
     
     points = 0
     if "Jack" in card or "Queen" in card or "King" in card:
@@ -54,9 +59,6 @@ def dealerDraw():  # Almost exactly the same as the standard draw function, but 
     else:
         points = card[1]
         
-    while card in drawnCards:
-        card = generateCard()
-    drawnCards.append(card)        
     return card, points
 
 
@@ -186,3 +188,7 @@ while playerBust == False and currentRound <= 5:
         playerBust = True
     else:
         currentRound += 1
+    
+    
+        # BUGS: Values are often inconsistent. Most likely caused by score resetting.
+        # TODO: Fix bugs
