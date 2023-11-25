@@ -21,7 +21,7 @@ class Blackjack {
             int value = rand.nextInt(13);
             value = cards[1][value];
             
-            int points = 0;
+            points = 0;
             switch (card) {
                 case value == "Jack" || value == "Queen" || value == "King":
                 points = 10;
@@ -47,11 +47,11 @@ class Blackjack {
             String drawnCard = (value + " of " + suit);
             for (int i = 0; i <= drawnCards.length; i++) {
             if (drawnCard == drawnCards[i]) {
-                int suit = rand.nextInt(4);
+                suit = rand.nextInt(4);
                 suit = cards[0][suit];
-                int value = rand.nextInt(13);
+                value = rand.nextInt(13);
                 value = cards[1][value];
-                String card = (value + " of " + suit);
+                card = (value + " of " + suit);
             } else {
             drawnCards.append(card);
                 }
@@ -66,7 +66,7 @@ class Blackjack {
             int value = rand.nextInt(13);
             value = cards[1][value];
             
-            int points = 0;
+            points = 0;
             switch (card) {
             case value == "Jack" || value == "Queen" || value == "King":
             points = 10;
@@ -84,10 +84,9 @@ class Blackjack {
             default:
             points = Integer.parseInt(value);
             break;
-
             }
 
-            String card = (value + " of " + suit);
+            card = (value + " of " + suit);
             for (int i = 0; i <= drawnCards.length; i++) {
             if (card == drawnCard) {
                 suit = rand.nextInt(4);
@@ -145,7 +144,7 @@ class Blackjack {
                 String drawOrHold = choice.nextLine();
                 System.out.println("You can do the following: draw or hold. What do you choose? ");
                 while (choice != "draw" && choice != "hold") {
-                String drawOrHold = choice.nextLine();
+                drawOrHold = choice.nextLine();
                 System.out.println("You can do the following: draw or hold. What do you choose? ");
                 if (choice == "hold") {
                     System.out.println("You have chosen to hold. Your score is " + playerPoints);
@@ -168,7 +167,7 @@ class Blackjack {
                         System.out.println("Equalled 21 points; turn ending");
                         choice = "hold";
                     } else {
-                            String drawOrHold = choice.nextLine();
+                            drawOrHold = choice.nextLine();
                             System.out.println("You can do the following: draw or hold. What do you choose? ");
                         if (choice == "hold") {
                             System.out.println("You have chosen to hold. Your score is " + playerPoints);
@@ -248,6 +247,8 @@ class Blackjack {
             }
 
     }
+}
+}
 }
 
  /* TO DO:
