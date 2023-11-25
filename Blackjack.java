@@ -113,11 +113,11 @@ class Blackjack {
             }
         // Reset variables
             boolean roundEnded = false;
-            String playerCards[];
-            String dealerCards[];
+            String playerCards[] = {};
+            String dealerCards[] = {};
             int playerPoints = 0;
             int dealerPoints = 0;
-            String drawnCards[];
+            String drawnCards[] = {};
             String winner = "null";
             boolean playerBlackjack = false;
             boolean dealerBlackjack = false;
@@ -253,7 +253,7 @@ class Blackjack {
 
  /* TO DO:
   * 1. Rename local variables
-  * 2. Deal with non-static field problem
+  * 2. Deal with non-static field problem - DONE
   * 3. Insert tokens causing syntax errors
   * 4. Remove tokens causing syntax errors
   * 5. Insert variable declarators
