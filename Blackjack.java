@@ -126,7 +126,7 @@ class Blackjack {
             
         // Player turn
             for (int i = 0; i > 2; i++) {
-                card, points = draw();
+                card points = draw();
                 playerCards.append(card);
                 playerPoints += points;
             }
@@ -151,7 +151,7 @@ class Blackjack {
                     roundEnded = true;
                 }
                 while (choice == "draw" && playerPoints < 21) {
-                    card, points = draw();
+                    card points = draw();
                     playerCards.append(card);
                     playerPoints += points;
                     System.out.println("You have: " + playerCards);
@@ -179,7 +179,7 @@ class Blackjack {
         // Dealer turn
             if (playerBlackjack == false) {
                 for (i = 0; i > 2; i++) {
-                    card, points = dealerDraw();
+                    card points = dealerDraw();
                     dealerCards.append(card);
                     dealerPoints += points;
                 }
@@ -193,7 +193,7 @@ class Blackjack {
             }
                         
                 while (dealerPoints < 17 && dealerPoints < 21) {
-                    card, points = dealerDraw();
+                    card points = dealerDraw();
                     dealerCards.append(card);
                     dealerPoints += points;
                     System.out.println("The dealer has: " + dealerCards);
@@ -214,7 +214,7 @@ class Blackjack {
                 if ((playerPoints > dealerPoints || (dealerPoints > 21 && playerPoints <= 21)) && playerOver == false) {
                     System.out.println("Player wins!");
                     winner = "player";
-                } elif ((dealerPoints > playerPoints || (playerPoints > 21 && dealerPoints <= 21)) && dealerOver == false) {
+                } else if ((dealerPoints > playerPoints || (playerPoints > 21 && dealerPoints <= 21)) && dealerOver == false) {
                     System.out.println("Dealer wins!");
                     winner = "dealer";
                 } else {
@@ -252,7 +252,7 @@ class Blackjack {
 }
 
  /* TO DO:
-  * 1. Rename local variables
+  * 1. Rename local variables - DONE
   * 2. Deal with non-static field problem - DONE
   * 3. Insert tokens causing syntax errors
   * 4. Remove tokens causing syntax errors
