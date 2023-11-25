@@ -152,7 +152,7 @@ class Blackjack {
                 }
                 while (choice == "draw" && playerPoints < 21) {
                     card, points = draw();
-                    playerCards;
+                    playerCards.append(card);
                     playerPoints += points;
                     System.out.println("You have: " + playerCards);
                     System.out.println("You have: " + playerPoints + " points");
@@ -256,7 +256,7 @@ class Blackjack {
   * 2. Deal with non-static field problem - DONE
   * 3. Insert tokens causing syntax errors
   * 4. Remove tokens causing syntax errors
-  * 5. Insert variable declarators
+  * 5. Insert variable declarators - DONE
   * 6. Complete block and class bodies
   * 7. Use Scanner for inputs - DONE
   */
