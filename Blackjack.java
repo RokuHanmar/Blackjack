@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 class Blackjack {
     public static void main(String[] args) {
@@ -27,7 +28,9 @@ class Blackjack {
                 break;
                 
                 case value == "Ace":
-                String highOrLow = input("High Ace, or Low Ace? Answer will default to low ");
+                Scanner highOrLow = new Scanner(System.in);
+                String AceValue = highOrLow.nextLine();
+                System.out.println("High Ace, or Low Ace? Answer will default to low ");
                 if (highOrLow == "high") {
                     points = 11;
                 } else {
@@ -36,7 +39,7 @@ class Blackjack {
                 break;
 
                 default:
-                points = int(value);
+                points = value;
                 break;
 
                 }
@@ -83,7 +86,7 @@ class Blackjack {
             break;
 
             }
-            
+
             String card = (value + " of " + suit);
             for (int i = 0; i <= drawnCards.length; i++) {
             if (card == drawnCard) {
@@ -138,9 +141,12 @@ class Blackjack {
                 
         // Player decision once first 2 cards have been drawn - drawing and folding
             while (playerPoints < 21 && roundEnded == False) {
-                var choice = input("You can do the following: draw or fold. What do you choose? ");
+                Scanner choice = new Scanner(System.in);
+                String drawOrHold = choice.nextLine();
+                System.out.println("You can do the following: draw or fold. What do you choose? ");
                 while (choice != "draw" && choice != "fold") {
-                    String choice = input("You can do the following: draw or fold. What do you choose? ");
+                String drawOrHold = choice.nextLine();
+                System.out.println("You can do the following: draw or fold. What do you choose? ");
                 if (choice == "fold") {
                     System.out.println("You have folded. Your score is " + playerPoints);
                     roundEnded = True;
@@ -162,7 +168,8 @@ class Blackjack {
                         System.out.println("Equalled 21 points; turn ending");
                         choice = "fold";
                     } else {
-                        choice = input("You can do the following: draw or fold. What do you choose? ");
+                            String drawOrHold = choice.nextLine();
+                            System.out.println("You can do the following: draw or fold. What do you choose? ");
                         if (choice == "fold") {
                             System.out.println("You have folded. Your score is " + playerPoints);
                             roundEnded = True;
@@ -242,3 +249,13 @@ class Blackjack {
 
     }
 }
+
+ /* TO DO:
+  * 1. Rename local variables
+  * 2. Deal with non-static field problem
+  * 3. Insert tokens causing syntax errors
+  * 4. Remove tokens causing syntax errors
+  * 5. Insert variable declarators
+  * 6. Complete block and class bodies
+  * 7. Use Scanner for inputs - DONE
+  */
