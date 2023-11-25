@@ -9,59 +9,53 @@ playerBust = False
 
 currentRound = 1
 
-def draw():  # Get a suit and a value, combine them, and check to see if it's already drawn. If so, draw a new card. If
-    suit = random.randint(0, 3)  # not, add to the list of drawn cards and return
+def generateCard():
+    suit = random.randint(0, 3)
     suit = cards[0][suit]
     value = random.randint(0, 12)
     value = cards[1][value]
+    card = (str(value) + " of " + str(suit))
+    return [card, value]
+
+    
+
+def draw():  # Get a suit and a value, combine them, and check to see if it's already drawn. If so, draw a new card. If
+    card = generateCard()
     
     points = 0
-    if value == "Jack" or value == "Queen" or value == "King":
+    if "Jack" in card or "Queen" in card or "King" in card:
         points = 10
-    elif value == "Ace":
+    elif "Ace" in card:
         highOrLow = input("High Ace, or Low Ace? Answer will default to low ")
         if highOrLow.lower() == "high":
             points = 11
         else:
             points = 1
     else:
-        points = int(value)
+        points = card[1]
         
-    card = (str(value) + " of " + str(suit))
     while card in drawnCards:
-        suit = random.randint(0, 3)
-        suit = cards[0][suit]
-        value = random.randint(0, 12)
-        value = cards[1][value]
-        card = (str(value) + " of " + str(suit))
+        card = generateCard()
     drawnCards.append(card)        
     return card, points
 
 def dealerDraw():  # Almost exactly the same as the standard draw function, but randomises Ace value
-    suit = random.randint(0, 3)
-    suit = cards[0][suit]
-    value = random.randint(0, 12)
-    value = cards[1][value]
+    card = generateCard()
     
     points = 0
-    if value == "Jack" or value == "Queen" or value == "King":
+    if "Jack" in card or "Queen" in card or "King" in card:
         points = 10
-    elif value == "Ace":
+    elif "Ace" in card:
         highOrLow = random.randint(1, 2)
         if highOrLow == 1:
             points = 1
         else:
             points = 2
     else:
-        points = int(value)
+        points = card[1]
         
-    card = (str(value) + " of " + str(suit))
     while card in drawnCards:
-        suit = random.randint(0, 3)
-        suit = cards[0][suit]
-        value = random.randint(0, 12)
-        value = cards[1][value]
-        card = (str(value) + " of " + str(suit))
+        card = generateCard()
     drawnCards.append(card)        
     return card, points
 
@@ -78,11 +72,7 @@ while playerBust == False and currentRound <= 5:
     while bet <= 0:
         print("Error: you must bet at least 1 money")
         bet = float(input("Enter your bet: "))
-    """
-    while bet is not float:
-        print("Error: invalid input")
-        bet = float(input("Enter your bet: "))
-       """ 
+   
 # Reset variables
     roundEnded = False
     playerCards = []
@@ -99,8 +89,8 @@ while playerBust == False and currentRound <= 5:
 # Player turn
     for i in range(2):
         card, points = draw()
-        playerCards.append(card)
-        playerPoints += points
+        playerCards.append(card[0])
+        playerPoints += int(points)
     print("You have: " + str(playerCards))
     print("You have: " + str(playerPoints) + " points")
     if playerPoints == 21:
@@ -119,7 +109,7 @@ while playerBust == False and currentRound <= 5:
         while choice.lower() == "draw" and playerPoints < 21:
             card, points = draw()
             playerCards.append(card)
-            playerPoints += points
+            playerPoints += int(points)
             print("You have: " + str(playerCards))
             print("You have: " + str(playerPoints) + " points")
 
@@ -143,8 +133,8 @@ while playerBust == False and currentRound <= 5:
     if playerBlackjack == False:
         for i in range(2):
             card, points = dealerDraw()
-            dealerCards.append(card)
-            dealerPoints += points
+            dealerCards.append(card[0])
+            dealerPoints += int(points)
         print("The dealer has: " + str(dealerCards))
         print("The dealer has: " + str(dealerPoints) + " points")
         if dealerPoints == 21:
@@ -155,7 +145,7 @@ while playerBust == False and currentRound <= 5:
         while dealerPoints < 17 and dealerPoints < 21:
             card, points = dealerDraw()
             dealerCards.append(card)
-            dealerPoints += points
+            dealerPoints += int(points)
             print("The dealer has: " + str(dealerCards))
             print("The dealer has: " + str(dealerPoints) + " points")
        
