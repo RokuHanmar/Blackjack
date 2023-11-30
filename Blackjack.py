@@ -110,7 +110,7 @@ while playerBust == False and currentRound <= 5:
             roundEnded = True
         while choice.lower() == "draw" and playerPoints < 21:
             card, points = draw()
-            playerCards.append(card)
+            playerCards.append(card[0])
             playerPoints += int(points)
             print("You have: " + str(playerCards))
             print("You have: " + str(playerPoints) + " points")
@@ -146,7 +146,7 @@ while playerBust == False and currentRound <= 5:
                 
         while dealerPoints < 17 and dealerPoints < 21:
             card, points = dealerDraw()
-            dealerCards.append(card)
+            dealerCards.append(card[0])
             dealerPoints += int(points)
             print("The dealer has: " + str(dealerCards))
             print("The dealer has: " + str(dealerPoints) + " points")
@@ -188,7 +188,3 @@ while playerBust == False and currentRound <= 5:
         playerBust = True
     else:
         currentRound += 1
-    
-    
-        # BUGS: Values are often inconsistent. Most likely caused by score resetting.
-        # TODO: Fix bugs
