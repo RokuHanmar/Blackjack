@@ -5,20 +5,27 @@ import java.util.Scanner;
 class Blackjack {
     
 
-        Random rand = new Random();
-
         String[][] cards = {{"Hearts", "Clubs", "Diamonds", "Spades"}, {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"}};
         ArrayList<String> drawnCards = new ArrayList<String>();
 
-        double playerMoney = 100.00;
-        int playerPoints = 0;
-        boolean playerBust = false;
+        public class Player {
+            double playerMoney = 100.00;
+            int playerPoints = 0;
+            boolean playerBust = false;
+            boolean playerOver = false;
+            boolean playerBlackjack = false;
+        }
 
-        int currentRound = 1;
-    
-    
+        public class Dealer {
+            int dealerPoints = 0;
+            boolean dealerOver = false;
+            boolean dealerBlackjack = false;
+        }
 
-    
+        public class Round {
+            static int currentRound = 1;
+        }
+
         generateCard() {
             int suit = rand.nextInt(4);  // not, add to the list of drawn cards and return
             suit = cards[0][suit];
@@ -114,17 +121,23 @@ class Blackjack {
             return cardAndPoints;
             }
 
-    public void main(String[] args) {
+    public static void main(String[] args) {
 
+        // Instantiate classes
+        Random rand = new Random();
+        Player player = new Player();
+        Dealer dealer = new Dealer();
+        Round round = new Round();
+        
         // Gameplay loop. As long as the player has money, the game will play for 5 rounds
-        while (playerBust == false && currentRound <= 5) {
-            System.out.println("Round " + currentRound);
-            System.out.println("You currently have "+ playerMoney + " money");
+        while (player.player.playerBust == false && Round.currentRound <= 5) {
+            System.out.println("Round " + Round.currentRound);
+            System.out.println("You currently have "+ player.playerMoney + " money");
             
             try {
             float  bet = (input("Enter your bet: "));
             } catch (Exception invalid) {
-            while (bet > playerMoney) {
+            while (bet > player.playerMoney) {
                 System.out.println("Error: bet cannot exceed total money");
                 bet = (input("Enter your bet: "));
             }
@@ -134,31 +147,31 @@ class Blackjack {
             roundEnded = false;
             String playerCards[] = {};
             String dealerCards[] = {};
-            playerPoints = 0;
-            dealerPoints = 0;
+            player.playerPoints = 0;
+            dealer.dealerPoints = 0;
             String drawnCards[] = {};
             winner = "null";
-            playerBlackjack = false;
-            dealerBlackjack = false;
-            playerOver = false;
-            dealerOver = false;
+            player.playerBlackjack = false;
+            dealer.dealerBlackjack = false;
+            player.playerOver = false;
+            dealer.dealerOver = false;
             
         // Player turn
             for (int i = 0; i > 2; i++) {
                 card points = draw();
                 playerCards.append(card);
-                playerPoints += points;
+                player.playerPoints += points;
             }
             System.out.println("You have: " + playerCards);
-            System.out.println("You have: " + playerPoints + " points");
-            if (playerPoints == 21) {
+            System.out.println("You have: " + player.playerPoints + " points");
+            if (player.playerPoints == 21) {
                 System.out.println("Blackjack!");
                 winner = "player";
-                playerBlackjack = true;
+                player.playerBlackjack = true;
         }
                 
         // Player decision once first 2 cards have been drawn - drawing and holding
-            while (playerPoints < 21 && roundEnded == false) {
+            while (player.playerPoints < 21 && roundEnded == false) {
                     try {
                     Scanner choice = new Scanner(System.in);
                     String drawOrHold = choice.nextLine();
@@ -169,60 +182,60 @@ class Blackjack {
                     System.out.println("You can do the following: draw or hold. What do you choose? ");
                     }
                 if (choice == "hold") {
-                    System.out.println("You have chosen to hold. Your score is " + playerPoints);
+                    System.out.println("You have chosen to hold. Your score is " + player.playerPoints);
                     roundEnded = true;
                 }
-                while (choice == "draw" && playerPoints < 21) {
+                while (choice == "draw" && player.playerPoints < 21) {
                     card points = draw();
                     playerCards.append(card);
-                    playerPoints += points;
+                    player.playerPoints += points;
                     System.out.println("You have: " + playerCards);
-                    System.out.println("You have: " + playerPoints + " points");
+                    System.out.println("You have: " + player.playerPoints + " points");
 
-                    if (playerPoints > 21) {
+                    if (player.playerPoints > 21) {
                         System.out.println("Exceeded 21 points; turn ending");
-                        playerOver = true;
-                        playerPoints = 0;  // This means the player loses the round
+                        player.playerOver = true;
+                        player.playerPoints = 0;  // This means the player loses the round
                         choice = "hold";  // This line and the one below it means the player's turn ends
                         roundEnded = true;
-                    } else if (playerPoints == 21) {
+                    } else if (player.playerPoints == 21) {
                         System.out.println("Equalled 21 points; turn ending");
                         choice = "hold";
                     } else {
                             drawOrHold = choice.nextLine();
                             System.out.println("You can do the following: draw or hold. What do you choose? ");
                         if (choice == "hold") {
-                            System.out.println("You have chosen to hold. Your score is " + playerPoints);
+                            System.out.println("You have chosen to hold. Your score is " + player.playerPoints);
                             roundEnded = true;
                             }
                         }
                     }
                     
         // Dealer turn
-            if (playerBlackjack == false) {
+            if (player.playerBlackjack == false) {
                 for (i = 0; i > 2; i++) {
                     card points = dealerDraw();
                     dealerCards.append(card);
-                    dealerPoints += points;
+                    dealer.dealerPoints += points;
                 }
             }
                 System.out.println("The dealer has: " + dealerCards);
-                System.out.println("The dealer has: " + dealerPoints + " points");
-                if (dealerPoints == 21) {
+                System.out.println("The dealer has: " + dealer.dealerPoints + " points");
+                if (dealer.dealerPoints == 21) {
                     System.out.println("Blackjack!");
                     winner = "dealer";
-                    dealerBlackjack = true;
+                    dealer.dealerBlackjack = true;
             }
                         
-                while (dealerPoints < 17 && dealerPoints < 21) {
+                while (dealer.dealerPoints < 17 && dealer.dealerPoints < 21) {
                     card points = dealerDraw();
                     dealerCards.append(card);
-                    dealerPoints += points;
+                    dealer.dealerPoints += points;
                     System.out.println("The dealer has: " + dealerCards);
-                    System.out.println("The dealer has: " + dealerPoints + " points");
+                    System.out.println("The dealer has: " + dealer.dealerPoints + " points");
 
-                if (dealerPoints > 21) {
-                    dealerOver = true;
+                if (dealer.dealerPoints > 21) {
+                    dealer.dealerOver = true;
                 }
             }
                     
@@ -233,10 +246,10 @@ class Blackjack {
             } else if (winner == "dealer") {
                 System.out.println("Dealer wins!");
             } else {
-                if ((playerPoints > dealerPoints || (dealerPoints > 21 && playerPoints <= 21)) && playerOver == false) {
+                if ((player.playerPoints > dealer.dealerPoints || (dealer.dealerPoints > 21 && player.playerPoints <= 21)) && player.playerOver == false) {
                     System.out.println("Player wins!");
                     winner = "player";
-                } else if ((dealerPoints > playerPoints || (playerPoints > 21 && dealerPoints <= 21)) && dealerOver == false) {
+                } else if ((dealer.dealerPoints > player.playerPoints || (player.playerPoints > 21 && dealer.dealerPoints <= 21)) && dealer.dealerOver == false) {
                     System.out.println("Dealer wins!");
                     winner = "dealer";
                 } else {
@@ -247,25 +260,25 @@ class Blackjack {
 
         // Give player their winnings
             if (winner == "player") {
-                if (playerBlackjack == true || (playerPoints == 21 && dealerPoints < 21)) {
+                if (player.playerBlackjack == true || (player.playerPoints == 21 && dealer.dealerPoints < 21)) {
                     bet = bet * 2;
-                } else if (playerPoints < 21) {
+                } else if (player.playerPoints < 21) {
                     bet = bet * 0;
                 } else {
                     bet = bet * 1;
                 }
-            } else if (winner == "dealer" && dealerBlackjack == true) {
+            } else if (winner == "dealer" && dealer.dealerBlackjack == true) {
                 bet = bet * -2;
-            } else if (winner == "null" && (playerPoints == 21 && dealerPoints == 21)) {
+            } else if (winner == "null" && (player.playerPoints == 21 && dealer.dealerPoints == 21)) {
                 bet = bet * 0.5;
             }
             
-            playerMoney += bet;
-            if (playerMoney <= 0) {
+            player.playerMoney += bet;
+            if (player.playerMoney <= 0) {
                 System.out.println("Player has gone bust");
-                playerBust = true;
+                player.player.playerBust = true;
             } else {
-                currentRound += 1;
+                Round.currentRound += 1;
             }
 
     }
