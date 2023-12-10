@@ -1,7 +1,7 @@
 # Blackjack
 An attempt at making blackjack in Python, Java and C
 
-Inspired by a COMP228 assignment, which asked me to do this in Swift (not uploaded at this point in time to avoid breaching Academic Integrity). This is Pontoon style blackjack, as opposed to Crazy Eights
+Inspired by a COMP228 assignment, which asked me to do this in Swift (this will not be uploaded to avoid breaching Academic Integrity). This is Pontoon style blackjack, as opposed to Crazy Eights
 
 Here are the rules:
 1. The player starts with a betting pool of 100. The game lasts for 5 rounds, or until the player's betting pool reaches 0 or lower. The game uses a standard 52 card deck
@@ -13,4 +13,4 @@ Here are the rules:
 7. If the dealer wins, the player loses their stake.
 8. If the round is tied, the player's stake is returned to them and the next round begins (assuming the tied round was not the last)
 
-This is the same game made in three languages as a way to test myself on the three. I am starting with Python because it's the simplest, and the language I have the most experience with. I plan to implement the game in Java next
+This is the same game made in three languages as a way to test myself on the three. I am starting with Python because it's the simplest, and the language I have the most experience with. I plan to implement the game in Java next, and then finish with C. In the future, I may expand this to other languages.
