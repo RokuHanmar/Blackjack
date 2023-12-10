@@ -68,7 +68,7 @@ class Blackjack {
                 }
 
             String drawnCard = (value + " of " + suit);
-            for (int i = 0; i <= drawnCards.length; i++) {
+            for (int i = 0; i <= drawnCards.size(); i++) {
             if (drawnCard == drawnCards.get(i)) {
                 suit = rand.nextInt(4);
                 suit = cards[0][suit];
@@ -96,8 +96,8 @@ class Blackjack {
             break;
                 
             case value == "Ace":
-            String highOrLow = input("High Ace, or Low Ace? Answer will default to low ");
-            if (highOrLow == "high") {
+            int highOrLow = rand.nextInt(2);
+            if (highOrLow == 1) {
                 points = 11;
             } else {
                 points = 1;
@@ -110,7 +110,7 @@ class Blackjack {
             }
 
             card = (value + " of " + suit);
-            for (int i = 0; i <= drawnCards.length; i++) {
+            for (int i = 0; i <= drawnCards.size(); i++) {
             if (card == drawnCard) {
                 suit = rand.nextInt(4);
                 suit = cards[0][suit];
@@ -138,11 +138,15 @@ class Blackjack {
             System.out.println("You currently have "+ player.playerMoney + " money");
             
             try {
-                player.playerBet = (input("Enter your player.playerBet: "));
+                Scanner input = new Scanner (System.in);
+                System.out.println("Enter your bet: ");
+                player.playerBet = input.nextDouble();
             } catch (Exception invalid) {
                 while (player.playerBet > player.playerMoney) {
-                    System.out.println("Error: player.playerBet cannot exceed total money");
-                    player.playerBet = (input("Enter your player.playerBet: "));
+                    System.out.println("Error: bet cannot exceed total money");
+                    Scanner input = new Scanner (System.in);
+                    System.out.println("Enter your bet: ");
+                    player.playerBet = input.nextDouble();
             }
         }
         
@@ -279,7 +283,7 @@ class Blackjack {
             player.playerMoney += player.playerBet;
             if (player.playerMoney <= 0) {
                 System.out.println("Player has gone bust");
-                player.player.playerBust = true;
+                player.playerBust = true;
             } else {
                 Round.currentRound += 1;
             }
