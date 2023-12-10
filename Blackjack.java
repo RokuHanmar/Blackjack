@@ -116,11 +116,16 @@ class Blackjack {
         while (playerBust == false && currentRound <= 5) {
             System.out.println("Round " + currentRound);
             System.out.println("You currently have "+ playerMoney + " money");
+            
+            try {
             float  bet = (input("Enter your bet: "));
+            } catch (Exception invalid) {
             while (bet > playerMoney) {
                 System.out.println("Error: bet cannot exceed total money");
                 bet = (input("Enter your bet: "));
             }
+        }
+        
         // Reset variables
             roundEnded = false;
             String playerCards[] = {};
@@ -150,12 +155,15 @@ class Blackjack {
                 
         // Player decision once first 2 cards have been drawn - drawing and holding
             while (playerPoints < 21 && roundEnded == false) {
-                Scanner choice = new Scanner(System.in);
-                String drawOrHold = choice.nextLine();
-                System.out.println("You can do the following: draw or hold. What do you choose? ");
-                while (choice != "draw" && choice != "hold") {
-                drawOrHold = choice.nextLine();
-                System.out.println("You can do the following: draw or hold. What do you choose? ");
+                    try {
+                    Scanner choice = new Scanner(System.in);
+                    String drawOrHold = choice.nextLine();
+                    System.out.println("You can do the following: draw or hold. What do you choose? ");
+                    } catch (Exception invalid) {
+                    while (choice != "draw" && choice != "hold") {
+                    drawOrHold = choice.nextLine();
+                    System.out.println("You can do the following: draw or hold. What do you choose? ");
+                    }
                 if (choice == "hold") {
                     System.out.println("You have chosen to hold. Your score is " + playerPoints);
                     roundEnded = true;
