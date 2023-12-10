@@ -15,6 +15,7 @@ class Blackjack {
             boolean playerBust = false;
             boolean playerOver = false;
             boolean playerBlackjack = false;
+            String choice = "null";
         }
 
         public class Dealer {
@@ -25,6 +26,7 @@ class Blackjack {
 
         public class Round {
             static int currentRound = 1;
+            boolean roundEnded = false;
         }
 
         generateCard() {
@@ -145,7 +147,7 @@ class Blackjack {
         }
         
         // Reset variables
-            roundEnded = false;
+            round.roundEnded = false;
             String playerCards[] = {};
             String dealerCards[] = {};
             player.playerPoints = 0;
@@ -172,19 +174,19 @@ class Blackjack {
         }
                 
         // Player decision once first 2 cards have been drawn - drawing and holding
-            while (player.playerPoints < 21 && roundEnded == false) {
+            while (player.playerPoints < 21 && round.roundEnded == false) {
                     try {
-                    Scanner choice = new Scanner(System.in);
-                    String drawOrHold = choice.nextLine();
-                    System.out.println("You can do the following: draw or hold. What do you choose? ");
+                        Scanner choice = new Scanner(System.in);
+                        String drawOrHold = choice.nextLine();
+                        System.out.println("You can do the following: draw or hold. What do you choose? ");
                     } catch (Exception invalid) {
-                    while (choice != "draw" && choice != "hold") {
-                    drawOrHold = choice.nextLine();
-                    System.out.println("You can do the following: draw or hold. What do you choose? ");
+                        while (choice != "draw" && choice != "hold") {
+                            drawOrHold = choice.nextLine();
+                            System.out.println("You can do the following: draw or hold. What do you choose? ");
                     }
                 if (choice == "hold") {
                     System.out.println("You have chosen to hold. Your score is " + player.playerPoints);
-                    roundEnded = true;
+                    round.roundEnded = true;
                 }
                 while (choice == "draw" && player.playerPoints < 21) {
                     card points = draw();
@@ -198,7 +200,7 @@ class Blackjack {
                         player.playerOver = true;
                         player.playerPoints = 0;  // This means the player loses the round
                         choice = "hold";  // This line and the one below it means the player's turn ends
-                        roundEnded = true;
+                        round.roundEnded = true;
                     } else if (player.playerPoints == 21) {
                         System.out.println("Equalled 21 points; turn ending");
                         choice = "hold";
@@ -207,7 +209,7 @@ class Blackjack {
                             System.out.println("You can do the following: draw or hold. What do you choose? ");
                         if (choice == "hold") {
                             System.out.println("You have chosen to hold. Your score is " + player.playerPoints);
-                            roundEnded = true;
+                            round.roundEnded = true;
                             }
                         }
                     }
