@@ -1,32 +1,34 @@
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 class Blackjack {
-    public static void main(String[] args) {
+    
 
         Random rand = new Random();
 
         String[][] cards = {{"Hearts", "Clubs", "Diamonds", "Spades"}, {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"}};
-        String[] drawnCards = {};
+        ArrayList<String> drawnCards = new ArrayList<String>();
 
         double playerMoney = 100.00;
         int playerPoints = 0;
         boolean playerBust = false;
 
         int currentRound = 1;
-    }
+    
+    
 
-    /*
-        static generateCard() {
+    
+        generateCard() {
             int suit = rand.nextInt(4);  // not, add to the list of drawn cards and return
             suit = cards[0][suit];
             int value = rand.nextInt(13);
             value = cards[1][value];
             
         }
-*/
 
-        static draw (String card, int points) {  // Get a suit and a value, combine them, and check to see if it's already drawn. If so, draw a new card. If
+
+        draw (String card, int points) {  // Get a suit and a value, combine them, and check to see if it's already drawn. If so, draw a new card. If
             int suit = rand.nextInt(4);  // not, add to the list of drawn cards and return
             suit = cards[0][suit];
             int value = rand.nextInt(13);
@@ -57,21 +59,21 @@ class Blackjack {
 
             String drawnCard = (value + " of " + suit);
             for (int i = 0; i <= drawnCards.length; i++) {
-            if (drawnCard == drawnCards[i]) {
+            if (drawnCard == drawnCards.get(i)) {
                 suit = rand.nextInt(4);
                 suit = cards[0][suit];
                 value = rand.nextInt(13);
                 value = cards[1][value];
                 card = (value + " of " + suit);
             } else {
-            drawnCards.append(card);
+            drawnCards.add(card);
                 }
             }
             Tuple cardAndPoints = new Tuple (card, points);
             return cardAndPoints;
         }
 
-        static dealerDraw (String card, int points) {  // Almost exactly the same as the standard draw function, but randomises Ace value
+        dealerDraw (String card, int points) {  // Almost exactly the same as the standard draw function, but randomises Ace value
             int suit = rand.nextInt(4);
             suit = cards[0][suit];
             int value = rand.nextInt(13);
@@ -107,10 +109,12 @@ class Blackjack {
                 card = (value + " of " + suit);
                         }
                 }
-            drawnCards.append(card);
+            drawnCards.add(card);
             Tuple cardAndPoints = new Tuple (card, points);
             return cardAndPoints;
             }
+
+    public void main(String[] args) {
 
         // Gameplay loop. As long as the player has money, the game will play for 5 rounds
         while (playerBust == false && currentRound <= 5) {
@@ -269,6 +273,7 @@ class Blackjack {
 }
 }
 }
+
 
 /* TO DO:
   * 1. Rename local variables - DONE
