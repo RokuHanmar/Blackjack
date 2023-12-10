@@ -9,8 +9,9 @@ class Blackjack {
         ArrayList<String> drawnCards = new ArrayList<String>();
 
         public class Player {
-            double playerMoney = 100.00;
             int playerPoints = 0;
+            double playerMoney = 100.00;
+            double playerBet = 0;
             boolean playerBust = false;
             boolean playerOver = false;
             boolean playerBlackjack = false;
@@ -130,16 +131,16 @@ class Blackjack {
         Round round = new Round();
         
         // Gameplay loop. As long as the player has money, the game will play for 5 rounds
-        while (player.player.playerBust == false && Round.currentRound <= 5) {
+        while (player.playerBust == false && Round.currentRound <= 5) {
             System.out.println("Round " + Round.currentRound);
             System.out.println("You currently have "+ player.playerMoney + " money");
             
             try {
-            float  bet = (input("Enter your bet: "));
+                player.playerBet = (input("Enter your player.playerBet: "));
             } catch (Exception invalid) {
-            while (bet > player.playerMoney) {
-                System.out.println("Error: bet cannot exceed total money");
-                bet = (input("Enter your bet: "));
+                while (player.playerBet > player.playerMoney) {
+                    System.out.println("Error: player.playerBet cannot exceed total money");
+                    player.playerBet = (input("Enter your player.playerBet: "));
             }
         }
         
@@ -150,7 +151,7 @@ class Blackjack {
             player.playerPoints = 0;
             dealer.dealerPoints = 0;
             String drawnCards[] = {};
-            winner = "null";
+            String winner = "null";
             player.playerBlackjack = false;
             dealer.dealerBlackjack = false;
             player.playerOver = false;
@@ -261,19 +262,19 @@ class Blackjack {
         // Give player their winnings
             if (winner == "player") {
                 if (player.playerBlackjack == true || (player.playerPoints == 21 && dealer.dealerPoints < 21)) {
-                    bet = bet * 2;
+                    player.playerBet = player.playerBet * 2;
                 } else if (player.playerPoints < 21) {
-                    bet = bet * 0;
+                    player.playerBet = player.playerBet * 0;
                 } else {
-                    bet = bet * 1;
+                    player.playerBet = player.playerBet * 1;
                 }
             } else if (winner == "dealer" && dealer.dealerBlackjack == true) {
-                bet = bet * -2;
+                player.playerBet = player.playerBet * -2;
             } else if (winner == "null" && (player.playerPoints == 21 && dealer.dealerPoints == 21)) {
-                bet = bet * 0.5;
+                player.playerBet = player.playerBet * 0.5;
             }
             
-            player.playerMoney += bet;
+            player.playerMoney += player.playerBet;
             if (player.playerMoney <= 0) {
                 System.out.println("Player has gone bust");
                 player.player.playerBust = true;
@@ -286,14 +287,3 @@ class Blackjack {
 }
 }
 }
-
-
-/* TO DO:
-  * 1. Rename local variables - DONE
-  * 2. Deal with non-static field problem - DONE
-  * 3. Insert tokens causing syntax errors - DONE
-  * 4. Remove tokens causing syntax errors
-  * 5. Insert variable declarators - DONE
-  * 6. Complete block and class bodies
-  * 7. Use Scanner for inputs - DONE
-  */
