@@ -61,45 +61,47 @@ dealerDraw = () => {  // Almost exactly the same as the original draw function, 
     return card, points;
 }
 
-// TODO
 // Gameplay loop. As long as the player has money, the game will play for 5 rounds
-while playerBust == False and currentRound <= 5:
-    print("_______________________________________________________________________________________________")
-    print("Round " + str(currentRound))
-    print("You currently have "+ str(playerMoney) + " money")
-    bet = float(input("Enter your bet: "))
-    while bet > playerMoney:
-        print("Error: bet cannot exceed total money")
-        bet = float(input("Enter your bet: "))
-    while bet <= 0:
-        print("Error: you must bet at least 1 money")
-        bet = float(input("Enter your bet: "))
-   
+while (playerBust === false && currentRound <= 5) {
+    console.log("_______________________________________________________________________________________________");
+    console.log(`Round ${currentRound}`);
+    console.log(`You currently have ${playerMoney} money`);
+    let bet = prompt("Enter your bet: ");
+    while (bet > playerMoney) {
+        console.log("Error: bet cannot exceed total money");
+        bet = prompt("Enter your bet: ");
+    }
+    while (bet <= 0) {
+        console.log("Error: you must bet at least 1 money");
+        bet = prompt("Enter your bet: ");
+    }
+    
 // Reset variables
-    roundEnded = False
-    playerCards = []
-    dealerCards = []
-    playerPoints = 0
-    dealerPoints = 0
-    drawnCards = []  # Note: the drawn cards are returned to the deck at the end of each round
-    winner = "null"
-    playerBlackjack = False
-    dealerBlackjack = False
-    playerOver = False
-    dealerOver = False
+    roundEnded = false;
+    playerCards = [];
+    dealerCards = [];
+    playerPoints = 0;
+    dealerPoints = 0;
+    drawnCards = [];  // Note: the drawn cards are returned to the deck at the end of each round
+    winner = null;
+    playerBlackjack = false;
+    dealerBlackjack = false;
+    playerOver = false;
+    dealerOver = false;
     
 // Player turn
-    for i in range(2):
-        card, points = draw()
-        playerCards.append(card[0])
-        playerPoints += int(points)
-    print("You have: " + str(playerCards))
-    print("You have: " + str(playerPoints) + " points")
-    if playerPoints == 21:
-        print("Blackjack!")
-        winner = "player"
-        playerBlackjack = True
-        
+    for (i = 0; i < 2; i++) {
+        let card, points = draw();
+        playerCards.push(card[0]);
+        playerPoints += points;
+    console.log(`You have: ${playerCards}`);
+    console.log(`You have: ${playerPoints} points`);
+    if (playerPoints === 21) {
+        console.log("Blackjack!");
+        winner = "player";
+        playerBlackjack = true;
+    }
+// TODO
 // Player decision once first 2 cards have been drawn - drawing and holding
     while playerPoints < 21 and roundEnded == False:
         choice = input("You can do the following: draw or hold. What do you choose? ")
@@ -188,3 +190,4 @@ while playerBust == False and currentRound <= 5:
         playerBust = True
     else:
         currentRound += 1
+}
