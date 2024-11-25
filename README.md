@@ -1,5 +1,5 @@
 # Blackjack
-An attempt at making blackjack in Python, Java and C
+An attempt at making blackjack in Python, Java, JavaScript and C
 
 Inspired by a COMP228 assignment, which asked me to do this in Swift (this will not be uploaded to avoid breaching Academic Integrity). This is Pontoon style blackjack, as opposed to Crazy Eights
 
@@ -13,4 +13,6 @@ Here are the rules:
 7. If the dealer wins, the player loses their stake.
 8. If the round is tied, the player's stake is returned to them and the next round begins (assuming the tied round was not the last)
 
-This is the same game made in three languages as a way to test myself on the three. I am starting with Python because it's the simplest, and the language I have the most experience with. I plan to implement the game in Java next, and then finish with C. In the future, I may expand this to other languages.
+This is the same game made in four languages as a way to test myself on the four. I am starting with Python because it's the simplest, and the language I have the most experience with. I plan to implement the game in Java next, and then finish with C and JavaScript. In the future, I may expand this to other languages.
+
+Author's note, 25/11/2024: I have expanded this to include JavaScript due to my recent learning of the language
