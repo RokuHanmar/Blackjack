@@ -1,11 +1,11 @@
-let cards = [["Hearts", "Clubs", "Diamonds", "Spades"], ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"]]
-let drawnCards = []
+const cards = [["Hearts", "Clubs", "Diamonds", "Spades"], ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"]];
+let drawnCards = [];
 
-let playerMoney = 100.00
-let playerPoints = 0
-let playerBust = false
+let playerMoney = 100.00;
+let playerPoints = 0;
+let playerBust = false;
 
-let currentRound = 1
+let currentRound = 1;
 
 generateCard = () => { // Draw cards
     let suit = Math.floor(Math.random() * 4);
@@ -13,29 +13,30 @@ generateCard = () => { // Draw cards
     let card = `${cards[value]} of ${suits[suit]}`;
     return card;
 
-    
-// TODO
-def draw():  // Draw a card, check if it's unique, total its points, then output it
-    card = generateCard()
+draw = () => {  // Draw a card, check if it's unique, total its points, then output it
+    card = generateCard();
             
-    while card in drawnCards:
-        card = generateCard()
-    drawnCards.append(card)
+    while (drawnCards.includes(card)) {
+        card = generateCard();
+    }
+    drawnCards.push(card);
     
-    points = 0
-    if "Jack" in card or "Queen" in card or "King" in card:
-        points = 10
-    elif "Ace" in card:
+    let points = 0;
+    if ("Jack" in card or "Queen" in card or "King" in card) {
+        points = 10;
+    } else if ("Ace" in card) {
         highOrLow = input("High Ace, or Low Ace? Answer will default to low ")
-        if highOrLow.lower() == "high":
-            points = 11
-        else:
-            points = 1
-    else:
-        points = card[1]
-
-    return card, points
-
+        if (highOrLow.lower() == "high") {
+            points = 11;
+        } else {
+            points = 1;
+        }
+    } else {
+        points = card[1];
+    }
+    return card, points;
+}
+    
 def dealerDraw():  // Almost exactly the same as the original draw function, but randomises Ace value
     card = generateCard()
             
