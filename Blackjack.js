@@ -22,11 +22,11 @@ draw = () => {  // Draw a card, check if it's unique, total its points, then out
     drawnCards.push(card);
     
     let points = 0;
-    if ("Jack" in card or "Queen" in card or "King" in card) {
+    if (card.includes("Jack") || card.includes("Queen") || card.includes("King")) {
         points = 10;
-    } else if ("Ace" in card) {
-        highOrLow = input("High Ace, or Low Ace? Answer will default to low ")
-        if (highOrLow.lower() == "high") {
+    } else if (card.includes("Ace")) {
+        highOrLow = prompt("High Ace, or Low Ace? Answer will default to low ")
+        if (highOrLow.lower() === "high") {
             points = 11;
         } else {
             points = 1;
@@ -36,29 +36,32 @@ draw = () => {  // Draw a card, check if it's unique, total its points, then out
     }
     return card, points;
 }
-    
-def dealerDraw():  // Almost exactly the same as the original draw function, but randomises Ace value
-    card = generateCard()
+ 
+dealerDraw = () => {  // Almost exactly the same as the original draw function, but randomises Ace value
+    card = generateCard();
             
-    while card in drawnCards:
-        card = generateCard()
-    drawnCards.append(card)
+    while (drawnCards.includes(card)) {
+        card = generateCard();
+    }
+    drawnCards.push(card);
     
-    points = 0
-    if "Jack" in card or "Queen" in card or "King" in card:
-        points = 10
-    elif "Ace" in card:
-        highOrLow = random.randint(1, 2)
-        if highOrLow == 1:
-            points = 1
-        else:
-            points = 2
-    else:
-        points = card[1]
-        
-    return card, points
+    let points = 0;
+    if (card.includes("Jack") || card.includes("Queen") || card.includes("King")) {
+        points = 10;
+    else if (card.includes("Ace")) {
+        let highOrLow = Math.floor(Math.random() * 2);
+        if (highOrLow === 1) {
+            points = 1;
+        } else {
+            points = 2;
+        }
+    } else {
+        points = card[1];
+    }
+    return card, points;
+}
 
-
+// TODO
 // Gameplay loop. As long as the player has money, the game will play for 5 rounds
 while playerBust == False and currentRound <= 5:
     print("_______________________________________________________________________________________________")
