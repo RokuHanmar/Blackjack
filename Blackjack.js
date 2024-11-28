@@ -101,38 +101,45 @@ while (playerBust === false && currentRound <= 5) {
         winner = "player";
         playerBlackjack = true;
     }
-// TODO
+        
 // Player decision once first 2 cards have been drawn - drawing and holding
-    while playerPoints < 21 and roundEnded == False:
-        choice = input("You can do the following: draw or hold. What do you choose? ")
-        while choice.lower() != "draw" and choice.lower() != "hold":
-            choice = input("You can do the following: draw or hold. What do you choose? ")
-        if choice.lower() == "hold":
-            print("You have chosen to hold. Your score is " + str(playerPoints))
-            roundEnded = True
-        while choice.lower() == "draw" and playerPoints < 21:
-            card, points = draw()
-            playerCards.append(card[0])
-            playerPoints += int(points)
-            print("You have: " + str(playerCards))
-            print("You have: " + str(playerPoints) + " points")
+    while (playerPoints < 21 && roundEnded === False) {
+        choice = prompt("You can do the following: draw or hold. What do you choose? ");
+        while (choice.toLowerCase() != "draw" && choice.toLowerCase() != "hold") {
+            choice = prompt("You can do the following: draw or hold. What do you choose? ");
+        }
+        if (choice.toLowerCase() === "hold") {
+            console.log(`You have chosen to hold. Your score is ${playerPoints}`);
+            roundEnded = true;
+        }
+        while (choice.toLowerCase() === "draw" && playerPoints < 21) {
+            card, points = draw();
+            playerCards.push(card[0]);
+            playerPoints += points;
+            console.log(`You have: ${playerCards}`);
+            console.log(`You have: ${playerPoints} points`);
+        }
 
-            # End player turn if they equal or exceed 21 points
-            if playerPoints > 21:
+            // End player turn if they equal or exceed 21 points
+            if (playerPoints > 21) {
                 print("Exceeded 21 points; turn ending")
-                playerOver = True
-                playerPoints = 0  # This means the player loses the round
-                choice = "hold"  # This line and the one below it means the player's turn ends
-                roundEnded = True
-            elif playerPoints == 21:
-                print("Equalled 21 points; turn ending")
-                choice = "hold"
-            else:
-                choice = input("You can do the following: draw or hold. What do you choose? ")
-                if choice.lower() == "hold":
-                    print("You have chosen to hold. Your score is " + str(playerPoints))
-                    roundEnded = True
+                playerOver = true
+                playerPoints = 0  // This means the player loses the round
+                choice = "hold";  // This line and the one below it means the player's turn ends
+                roundEnded = true
+            } else if (playerPoints === 21) {
+                console.log("Equalled 21 points; turn ending");
+                choice = "hold";
+            } else {
+                choice = prompt("You can do the following: draw or hold. What do you choose? ");
+                if (choice.toLowerCase() === "hold") {
+                    console.log(`You have chosen to hold. Your score is ${playerPoints}`);
+                    roundEnded = true;
+                }
+            }
+    }
 
+// TODO
 // Dealer turn
     if playerBlackjack == False:
         for i in range(2):
