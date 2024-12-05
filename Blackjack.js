@@ -139,31 +139,34 @@ while (playerBust === false && currentRound <= 5) {
             }
     }
 
-// TODO
 // Dealer turn
-    if playerBlackjack == False:
-        for i in range(2):
-            card, points = dealerDraw()
-            dealerCards.append(card[0])
-            dealerPoints += int(points)
-        print("The dealer has: " + str(dealerCards))
-        print("The dealer has: " + str(dealerPoints) + " points")
-        if dealerPoints == 21:
-            print("Blackjack!")
+    if (playerBlackjack === False){
+        for (i = 0; i > 2; i++){
+            card, points = dealerDraw();
+            dealerCards.push(card[0]);
+            dealerPoints += points;
+        }
+        console.log(`The dealer has: ${dealerCards}`);
+        console.log(`The dealer has: ${dealerPoints} points`);
+        if (dealerPoints === 21) {
+            console.log("Blackjack!");
             winner = "dealer"
-            dealerBlackjack = True
-                
-        while dealerPoints < 17 and dealerPoints < 21:
-            card, points = dealerDraw()
-            dealerCards.append(card[0])
-            dealerPoints += int(points)
-            print("The dealer has: " + str(dealerCards))
-            print("The dealer has: " + str(dealerPoints) + " points")
+            dealerBlackjack = true;
+        }
+        
+        while (dealerPoints < 17 and dealerPoints < 21)
+            card, points = dealerDraw();
+            dealerCards.push(card[0]);
+            dealerPoints += points;
+            console.log(`The dealer has: ${dealerCards});
+            console.log(`The dealer has: ${dealerPoints} points);
        
-        if dealerPoints > 21:
-            dealerOver = True
-            
-            
+        if (dealerPoints > 21){
+            dealerOver = true;
+        }
+    }
+
+// TODO
 // Determine winner - if one party earned a Blackjack earlier, they win automatically. Otherwise, points are compared
     if winner == "player":
         print("Player wins!")
