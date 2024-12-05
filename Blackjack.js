@@ -27,7 +27,7 @@ draw = () => {  // Draw a card, check if it's unique, total its points, then out
         points = 10;
     } else if (card.includes("Ace")) {
         highOrLow = prompt("High Ace, or Low Ace? Answer will default to low ")
-        if (highOrLow.lower() === "high") {
+        if (highOrLow.toLowerCase() === "high") {
             points = 11;
         } else {
             points = 1;
