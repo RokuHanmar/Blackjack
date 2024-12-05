@@ -35,7 +35,7 @@ draw = () => {  // Draw a card, check if it's unique, total its points, then out
     } else {
         points = card[1];
     }
-    return card, points;
+    return [card, points];
 }
  
 dealerDraw = () => {  // Almost exactly the same as the original draw function, but randomises Ace value
@@ -59,7 +59,7 @@ dealerDraw = () => {  // Almost exactly the same as the original draw function, 
     } else {
         points = card[1];
     }
-    return card, points;
+    return [card, points];
 }
 
 // Gameplay loop. As long as the player has money, the game will play for 5 rounds
@@ -92,10 +92,12 @@ while (playerBust === false && currentRound <= 5) {
     
 // Player turn
     for (i = 0; i < 2; i++) {
+        // console.log("here");
         let card, points = draw();
         playerCards.push(card[0]);
         playerPoints += points;
     }
+    console.log("here");
     console.log(`You have: ${playerCards}`);
     console.log(`You have: ${playerPoints} points`);
     if (playerPoints === 21) {
@@ -115,7 +117,7 @@ while (playerBust === false && currentRound <= 5) {
             roundEnded = true;
         }
         while (choice.toLowerCase() === "draw" && playerPoints < 21) {
-            card, points = draw();
+            let [card, points] = draw();
             playerCards.push(card[0]);
             playerPoints += points;
             console.log(`You have: ${playerCards}`);
@@ -124,7 +126,7 @@ while (playerBust === false && currentRound <= 5) {
 
             // End player turn if they equal or exceed 21 points
             if (playerPoints > 21) {
-                print("Exceeded 21 points; turn ending")
+                console.log("Exceeded 21 points; turn ending")
                 playerOver = true
                 playerPoints = 0  // This means the player loses the round
                 choice = "hold";  // This line and the one below it means the player's turn ends
@@ -144,7 +146,7 @@ while (playerBust === false && currentRound <= 5) {
 // Dealer turn
     if (playerBlackjack === False){
         for (i = 0; i > 2; i++){
-            card, points = dealerDraw();
+            let [card, points] = dealerDraw();
             dealerCards.push(card[0]);
             dealerPoints += points;
         }
@@ -157,7 +159,7 @@ while (playerBust === false && currentRound <= 5) {
         }
         
         while (dealerPoints < 17 && dealerPoints < 21) {
-            card, points = dealerDraw();
+            let [card, points] = dealerDraw();
             dealerCards.push(card[0]);
             dealerPoints += points;
             console.log(`The dealer has: ${dealerCards}`);
@@ -171,7 +173,7 @@ while (playerBust === false && currentRound <= 5) {
 // Determine winner - if one party earned a Blackjack earlier, they win automatically. Otherwise, points are compared
     if (winner === "player"){
         console.log("Player wins!");
-    } else if (winner == "dealer"){
+    } else if (winner === "dealer"){
         console.log("Dealer wins!");
     } else {
         if ((playerPoints > dealerPoints || (dealerPoints > 21 && playerPoints <= 21)) && playerOver === false) {
