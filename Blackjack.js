@@ -10,8 +10,9 @@ let currentRound = 1;
 generateCard = () => { // Draw cards
     let suit = Math.floor(Math.random() * 4);
     let value = Math.floor(Math.random() * 13);
-    let card = `${cards[value]} of ${suits[suit]}`;
+    let card = `${cards[1][value]} of ${cards[0][suit]}`;
     return card;
+}
 
 draw = () => {  // Draw a card, check if it's unique, total its points, then output it
     card = generateCard();
@@ -42,13 +43,13 @@ dealerDraw = () => {  // Almost exactly the same as the original draw function, 
             
     while (drawnCards.includes(card)) {
         card = generateCard();
-    }
+      }
     drawnCards.push(card);
     
     let points = 0;
     if (card.includes("Jack") || card.includes("Queen") || card.includes("King")) {
         points = 10;
-    else if (card.includes("Ace")) {
+    } else if (card.includes("Ace")) {
         let highOrLow = Math.floor(Math.random() * 2);
         if (highOrLow === 1) {
             points = 1;
@@ -155,13 +156,13 @@ while (playerBust === false && currentRound <= 5) {
             dealerBlackjack = true;
         }
         
-        while (dealerPoints < 17 and dealerPoints < 21)
+        while (dealerPoints < 17 && dealerPoints < 21) {
             card, points = dealerDraw();
             dealerCards.push(card[0]);
             dealerPoints += points;
-            console.log(`The dealer has: ${dealerCards});
-            console.log(`The dealer has: ${dealerPoints} points);
-       
+            console.log(`The dealer has: ${dealerCards}`);
+            console.log(`The dealer has: ${dealerPoints} points`);
+        }
         if (dealerPoints > 21){
             dealerOver = true;
         }
