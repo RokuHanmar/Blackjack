@@ -166,23 +166,24 @@ while (playerBust === false && currentRound <= 5) {
         }
     }
 
-// TODO
 // Determine winner - if one party earned a Blackjack earlier, they win automatically. Otherwise, points are compared
-    if winner == "player":
-        print("Player wins!")
-    elif winner == "dealer":
-        print("Dealer wins!")
-    else:
-        if (playerPoints > dealerPoints or (dealerPoints > 21 and playerPoints <= 21)) and playerOver == False:
-            print("Player wins!")
-            winner = "player"
-        elif (dealerPoints > playerPoints or (playerPoints > 21 and dealerPoints <= 21)) and dealerOver == False:
-            print("Dealer wins!")
-            winner = "dealer"
-        else:
-            print("Round tied")
-            winner = "null"
+    if (winner === "player"){
+        console.log("Player wins!");
+    } else if (winner == "dealer"){
+        console.log("Dealer wins!");
+    } else {
+        if ((playerPoints > dealerPoints || (dealerPoints > 21 && playerPoints <= 21)) && playerOver === false) {
+            console.log("Player wins!");
+            winner = "player";
+        } else if ((dealerPoints > playerPoints || (playerPoints > 21 && dealerPoints <= 21)) && dealerOver === false) {
+            console.log("Dealer wins!");
+            winner = "dealer";
+        } else {
+            console.log("Round tied");
+            winner = null;
+    }
 
+//  TODO
 // Give player their winnings
     if winner == "player":
         if playerBlackjack == True:
