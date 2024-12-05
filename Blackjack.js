@@ -94,6 +94,7 @@ while (playerBust === false && currentRound <= 5) {
         let card, points = draw();
         playerCards.push(card[0]);
         playerPoints += points;
+    }
     console.log(`You have: ${playerCards}`);
     console.log(`You have: ${playerPoints} points`);
     if (playerPoints === 21) {
@@ -181,24 +182,28 @@ while (playerBust === false && currentRound <= 5) {
         } else {
             console.log("Round tied");
             winner = null;
+        }
     }
 
 //  TODO
 // Give player their winnings
-    if winner == "player":
-        if playerBlackjack == True:
-            bet = bet * 2
-        else:
-            bet = bet * 1.5
-    elif winner == "dealer":
-        bet = bet * -1
-    elif winner == "null":
-        bet = bet * 0
-    playerMoney += bet
+    if (winner === "player") {
+        if (playerBlackjack === true) {
+            bet = bet * 2;
+        } else {
+            bet = bet * 1.5;
+        }
+    } else if (winner === "dealer") {
+        bet = bet * -1;
+    } else if (winner === null) {
+        bet = bet * 0;
+    }
+    playerMoney += bet;
     
-    if playerMoney <= 0:
-        print("Player has gone bust")
-        playerBust = True
-    else:
-        currentRound += 1
+    if (playerMoney <= 0) {
+        console.log("Player has gone bust");
+        playerBust = true;
+    } else {
+        currentRound += 1;
+    }
 }
